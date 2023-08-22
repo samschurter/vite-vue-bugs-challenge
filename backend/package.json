@@ -1,0 +1,27 @@
+{
+    "name": "documentqa",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./dist/index.js",
+    "scripts": {
+      "compile": "tsc --outDir ./dist",
+      "start": "functions-framework --source=dist/ --target=jsonServer --port=3000",
+      "build-start": "npm run compile && npm run kill-server && npm run start",
+      "dev": "nodemon -x 'npm run build-start'",
+      "kill-server": "PORT=3000 && PID=$(lsof -t -i:$PORT) && [ $PID -gt 0 ] && echo \"Killing server on port $PORT\"; kill $PID || echo \"Port $PORT is not in use\""
+    },
+    "nodemonConfig": {
+      "ignore": [
+        "**/*.test.ts",
+        "**/*.spec.ts",
+        ".git",
+        "node_modules"
+      ],
+      "watch": [
+        "./*"
+      ],
+      "exec": "npm run build-start",
+      "ext": "ts"
+    }
+  }
+  

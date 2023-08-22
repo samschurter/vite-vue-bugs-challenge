@@ -23,18 +23,21 @@
           v-for="(data, index) in dataList"
           :key="data.category"
           class="dataBar"
-          :style="colors[index]"
+          :style="data.color"
         >
           <div class="icon">
             <img :src="data.icon" alt="icon" />
           </div>
-          <h3 :style="textcolors?.[index]">{{ data.category }}</h3>
+          <h3 :style="data.textcolor">{{ data.category }}</h3>
           <div class="score-end">
             <span class="strong">{{ 20 }}</span>
             <span class="weak">/ 100</span>
           </div>
         </div>
-        <button @continue="onContinue">Continue</button>
+        <div class="button-container">
+          <button @continue="onClear">Clear</button>
+            <button @click="$emit('cancel')">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
@@ -42,42 +45,48 @@
 
 <script>
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     / TODO: fetch data and colors from api
     return {
       dataList: [
         {
+          id: 'reaction',
           category: 'Reaction',
           score: 85,
           icon: '/images/icon-reaction.svg',
+          color: `background-color:hsl(0, 100%, 67%, 0.05)`,
+          textColor: `color:hsl(0, 100%, 67%)`,
         },
         {
+          id: 'memory',
           category: 'Memory',
           score: 92,
           icon: '/images/icon-memory.svg',
+          color: `background-color:hsl(39, 100%, 56%, 0.05)`,
+          textColor: `color:hsl(39, 100%, 56%)`,
         },
         {
+          id: 'verbal',
           category: 'Verbal',
           score: 61,
           icon: '/images/icon-verbal.svg',
+          color: `background-color:hsl(166, 100%, 37%, 0.05)`,
+          textColor: `color:hsl(166, 100%, 37%)`,
         },
         {
+          id: 'visual',
           category: 'Visual',
           score: 72,
           icon: '/images/icon-visual.svg',
+          color: `background-color:hsl(234, 85%, 45%, 0.05)`,
+          textColor: `color:hsl(234, 85%, 45%)`,
         },
-      ],
-      colors: [
-        `background-color:hsl(0, 100%, 67%, 0.05)`,
-        `background-color:hsl(39, 100%, 56%, 0.05)`,
-        `background-color:hsl(166, 100%, 37%, 0.05)`,
-        `background-color:hsl(234, 85%, 45%, 0.05)`,
-      ],
-      textColors: [
-        `color:hsl(0, 100%, 67%)`,
-        `color:hsl(39, 100%, 56%)`,
-        `color:hsl(166, 100%, 37%)`,
-        `color:hsl(234, 85%, 45%)`,
       ],
     };
   },
@@ -88,7 +97,7 @@ export default {
     },
   },
   methods: {
-    onContinue() {
+    onClear() {
       // clear each result for a score of 0
       this.dataList.forEach((result) => (result = 0));
     },
@@ -97,24 +106,7 @@ export default {
 </script>
 
 <style scoped>
-.card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
-.card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 740px;
-  height: 520px;
-  background-color: var(--neutral-white);
-  border-radius: 30px;
-  box-shadow: 0px 0px 30px 0px rgba(50, 78, 238, 0.308);
-}
 /* left card */
 .card-left {
   width: 50%;
@@ -156,7 +148,6 @@ export default {
   color: var(--neutral-white);
   font-size: 120px;
   font-weight: 700;
-  margin: 20px 0 0 20px;
 }
 
 .card-left h3 {
@@ -179,6 +170,7 @@ export default {
   align-items: center;
   margin: 0 auto;
   border-radius: 10px;
+  padding-left: 1rem;
 }
 
 .dataBar h3 {
@@ -209,7 +201,7 @@ export default {
 }
 
 .card-right button {
-  width: 300px;
+  width: 100%;
   height: 55px;
 
   background-color: var(--neutral-dark-gray-blue);
@@ -218,8 +210,13 @@ export default {
   color: var(--neutral-white);
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 40px;
-  margin-left: 40px;
+}
+.card-right .button-container {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 .card-right button:hover {

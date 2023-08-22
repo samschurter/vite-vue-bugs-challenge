@@ -1,0 +1,53 @@
+import {Request, Response} from 'express';
+import {randomBytes} from 'crypto';
+import * as fs from 'fs';
+
+const authToken = randomBytes(32).toString('hex');
+
+const users = JSON.parse(fs.readFileSync('data.json', 'utf8'));
+
+/**
+ * 
+  curl localhost:8080/getAuthToken
+
+  curl -H "Authorization: Bearer fbb55f8a739af59a9f5f65b592c82461c6b9797e91b87eeeb97150caf44bf4c2" localhost:8080/listUsers | jq
+
+  curl -H "Authorization: Bearer fbb55f8a739af59a9f5f65b592c82461c6b9797e91b87eeeb97150caf44bf4c2" localhost:8080/getUser?userID=JBD79IMZ2DG | jq 
+ */
+
+const jsonServer = async (req: Request, res: Response) => {
+  switch (req.path) {
+    case '/getAuthToken':
+      res.status(200).json({token: authToken, expiration: (new Date(Date.now() + 86400000)).getTime()})
+      break;
+    case '/listUsers':
+      if (req.headers.authorization !== `Bearer ${authToken}`) {
+        res.status(401).json({error: 'Unauthorized'});
+        return;
+      }
+      const userIds = users.map(user => user.id);
+      res.status(200).json(userIds)
+      break;
+    case '/getUser':
+      if (req.headers.authorization !== `Bearer ${authToken}`) {
+        res.status(401).json({error: 'Unauthorized: Invalid Token or No Token Provided'});
+        return;
+      }
+      const userId = req.query.userId;
+      if (!userId) {
+        res.status(400).json({error: 'Bad Request: Missing User ID'});
+        return;
+      }
+      const user = users.find(user => user.id === userId);
+      if (!user) {
+        res.status(404).json({error: 'User Not Found'});
+        return;
+      }
+      res.status(200).json(user);
+      break;
+    default:
+      res.status(404).json({error: 'API Not Found'});
+  }
+};
+
+export {jsonServer};
