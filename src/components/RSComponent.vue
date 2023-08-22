@@ -117,8 +117,6 @@ export default {
     var(--gradient-light-royal-blue) 100%
   );
   border-radius: 30px;
-
-  /* flex */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -129,8 +127,6 @@ export default {
   width: 50%;
   height: 100%;
   border-radius: 0 20px 20px 0;
-
-  /* flex */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -181,7 +177,6 @@ export default {
 }
 
 .dataBar span {
-  /* color: var(--neutral-dark-blue); */
   font-size: 18px;
   font-weight: 400;
   margin: 0 0 0 20px;
@@ -203,7 +198,6 @@ export default {
 .card-right button {
   width: 100%;
   height: 55px;
-
   background-color: var(--neutral-dark-gray-blue);
   border-radius: 50px;
   border: none;
@@ -223,7 +217,6 @@ export default {
   background-color: var(--gradient-light-royal-blue);
 }
 
-/* align in right */
 .score-end {
   display: flex;
   justify-content: flex-end;
@@ -244,8 +237,6 @@ export default {
 }
 
 .title {
-  /* background-color: rgba(240, 248, 255, 0.471);  */
-  /* center */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -261,19 +252,12 @@ export default {
 .circle {
   width: 180px;
   height: 180px;
-  /* background-color: rgba(240, 248, 255, 0.609); */
   border-radius: 50%;
-
-  /* align elemnts center and clumn*/
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  /* center itself */
   margin: 0 auto;
-
-  /* gradient background-color inverse against the left card */
   background: linear-gradient(
     180deg,
     var(--gradient-violet-blue) 0%,
@@ -296,19 +280,10 @@ export default {
 .commit {
   width: 300px;
   height: 150px;
-  /* background-color: rgba(240, 248, 255, 0.609); */
-
-  /* align elemnts center and clumn*/
   display: flex;
-  /* justify-content: center;
-        align-items: center; */
   flex-direction: column;
-
-  /* center itself and up from the buttom*/
   margin: 0 auto;
   margin-bottom: 40px;
-
-  /* space betweent items */
   gap: 20px;
 }
 
@@ -316,62 +291,38 @@ export default {
   font-size: 32px;
   font-weight: 600;
   color: var(--neutral-white);
-  /*self cneter */
   margin: 0 auto;
 }
 
 .commit p {
-  /* font-size: 18px;
-        font-weight: 400;
-        color:var(--neutral-light-lavender);
-        margin-bottom: 60px;
-
-        text-align:start; */
-
-  /* space between characters */
   letter-spacing: 1px;
-
   font-size: 0.75rem;
   width: 200px;
   font-weight: 600;
   color: var(--neutral-light-lavender);
-
   line-height: 1.5;
   text-align: center;
-  /* background-color: rgba(240, 248, 255, 0.539); */
-
-  /*align self center */
   margin: 0 auto;
 }
 
 @media screen and (max-width: 375px) {
   .card {
-    /* aligin items in column */
     flex-direction: column;
-
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    /* center itself */
     margin: 0 auto;
-
     height: 100%;
     width: 100%;
   }
 
   .card-left {
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    /* center itself */
     margin: 0 auto;
-
     height: 100%;
     width: 100%;
   }
@@ -379,13 +330,10 @@ export default {
   .card-right {
     height: 100%;
     width: 100%;
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    /* center itself */
     margin: 0 auto;
   }
 }
