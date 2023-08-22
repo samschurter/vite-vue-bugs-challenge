@@ -23,61 +23,71 @@
           v-for="(data, index) in dataList"
           :key="data.category"
           class="dataBar"
-          :style="colors[index]"
+          :style="data.color"
         >
           <div class="icon">
             <img :src="data.icon" alt="icon" />
           </div>
-          <h3 :style="textcolors?.[index]">{{ data.category }}</h3>
+          <h3 :style="data.textcolor">{{ data.category }}</h3>
           <div class="score-end">
             <span class="strong">{{ 20 }}</span>
             <span class="weak">/ 100</span>
           </div>
         </div>
-        <button @continue="onContinue">Continue</button>
+        <div class="button-container">
+          <button @continue="onClear">Clear</button>
+            <button @click="$emit('cancel')">Cancel</button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+const API_URL = "https://" + window.location.host.replace('5173', '3000') + "/";
 export default {
+  props: {
+    user: {
+      type: Object,
+      required: true,
+    },
+  },
   data() {
     / TODO: fetch data and colors from api
     return {
       dataList: [
         {
+          id: 'reaction',
           category: 'Reaction',
           score: 85,
           icon: '/images/icon-reaction.svg',
+          color: `background-color:hsl(0, 100%, 67%, 0.05)`,
+          textColor: `color:hsl(0, 100%, 67%)`,
         },
         {
+          id: 'memory',
           category: 'Memory',
           score: 92,
           icon: '/images/icon-memory.svg',
+          color: `background-color:hsl(39, 100%, 56%, 0.05)`,
+          textColor: `color:hsl(39, 100%, 56%)`,
         },
         {
+          id: 'verbal',
           category: 'Verbal',
           score: 61,
           icon: '/images/icon-verbal.svg',
+          color: `background-color:hsl(166, 100%, 37%, 0.05)`,
+          textColor: `color:hsl(166, 100%, 37%)`,
         },
         {
+          id: 'visual',
           category: 'Visual',
           score: 72,
           icon: '/images/icon-visual.svg',
+          color: `background-color:hsl(234, 85%, 45%, 0.05)`,
+          textColor: `color:hsl(234, 85%, 45%)`,
         },
-      ],
-      colors: [
-        `background-color:hsl(0, 100%, 67%, 0.05)`,
-        `background-color:hsl(39, 100%, 56%, 0.05)`,
-        `background-color:hsl(166, 100%, 37%, 0.05)`,
-        `background-color:hsl(234, 85%, 45%, 0.05)`,
-      ],
-      textColors: [
-        `color:hsl(0, 100%, 67%)`,
-        `color:hsl(39, 100%, 56%)`,
-        `color:hsl(166, 100%, 37%)`,
-        `color:hsl(234, 85%, 45%)`,
       ],
     };
   },
@@ -88,7 +98,7 @@ export default {
     },
   },
   methods: {
-    onContinue() {
+    onClear() {
       // clear each result for a score of 0
       this.dataList.forEach((result) => (result = 0));
     },
@@ -97,24 +107,7 @@ export default {
 </script>
 
 <style scoped>
-.card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
-.card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 740px;
-  height: 520px;
-  background-color: var(--neutral-white);
-  border-radius: 30px;
-  box-shadow: 0px 0px 30px 0px rgba(50, 78, 238, 0.308);
-}
 /* left card */
 .card-left {
   width: 50%;
@@ -125,8 +118,6 @@ export default {
     var(--gradient-light-royal-blue) 100%
   );
   border-radius: 30px;
-
-  /* flex */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -137,8 +128,6 @@ export default {
   width: 50%;
   height: 100%;
   border-radius: 0 20px 20px 0;
-
-  /* flex */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -156,7 +145,6 @@ export default {
   color: var(--neutral-white);
   font-size: 120px;
   font-weight: 700;
-  margin: 20px 0 0 20px;
 }
 
 .card-left h3 {
@@ -179,6 +167,7 @@ export default {
   align-items: center;
   margin: 0 auto;
   border-radius: 10px;
+  padding-left: 1rem;
 }
 
 .dataBar h3 {
@@ -189,7 +178,6 @@ export default {
 }
 
 .dataBar span {
-  /* color: var(--neutral-dark-blue); */
   font-size: 18px;
   font-weight: 400;
   margin: 0 0 0 20px;
@@ -209,24 +197,27 @@ export default {
 }
 
 .card-right button {
-  width: 300px;
+  width: 100%;
   height: 55px;
-
   background-color: var(--neutral-dark-gray-blue);
   border-radius: 50px;
   border: none;
   color: var(--neutral-white);
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 40px;
-  margin-left: 40px;
+}
+.card-right .button-container {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  gap: 1rem;
+  width: 100%;
 }
 
 .card-right button:hover {
   background-color: var(--gradient-light-royal-blue);
 }
 
-/* align in right */
 .score-end {
   display: flex;
   justify-content: flex-end;
@@ -247,8 +238,6 @@ export default {
 }
 
 .title {
-  /* background-color: rgba(240, 248, 255, 0.471);  */
-  /* center */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -264,19 +253,12 @@ export default {
 .circle {
   width: 180px;
   height: 180px;
-  /* background-color: rgba(240, 248, 255, 0.609); */
   border-radius: 50%;
-
-  /* align elemnts center and clumn*/
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-
-  /* center itself */
   margin: 0 auto;
-
-  /* gradient background-color inverse against the left card */
   background: linear-gradient(
     180deg,
     var(--gradient-violet-blue) 0%,
@@ -299,19 +281,10 @@ export default {
 .commit {
   width: 300px;
   height: 150px;
-  /* background-color: rgba(240, 248, 255, 0.609); */
-
-  /* align elemnts center and clumn*/
   display: flex;
-  /* justify-content: center;
-        align-items: center; */
   flex-direction: column;
-
-  /* center itself and up from the buttom*/
   margin: 0 auto;
   margin-bottom: 40px;
-
-  /* space betweent items */
   gap: 20px;
 }
 
@@ -319,62 +292,38 @@ export default {
   font-size: 32px;
   font-weight: 600;
   color: var(--neutral-white);
-  /*self cneter */
   margin: 0 auto;
 }
 
 .commit p {
-  /* font-size: 18px;
-        font-weight: 400;
-        color:var(--neutral-light-lavender);
-        margin-bottom: 60px;
-
-        text-align:start; */
-
-  /* space between characters */
   letter-spacing: 1px;
-
   font-size: 0.75rem;
   width: 200px;
   font-weight: 600;
   color: var(--neutral-light-lavender);
-
   line-height: 1.5;
   text-align: center;
-  /* background-color: rgba(240, 248, 255, 0.539); */
-
-  /*align self center */
   margin: 0 auto;
 }
 
 @media screen and (max-width: 375px) {
   .card {
-    /* aligin items in column */
     flex-direction: column;
-
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    /* center itself */
     margin: 0 auto;
-
     height: 100%;
     width: 100%;
   }
 
   .card-left {
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    /* center itself */
     margin: 0 auto;
-
     height: 100%;
     width: 100%;
   }
@@ -382,13 +331,10 @@ export default {
   .card-right {
     height: 100%;
     width: 100%;
-    /* center */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-    /* center itself */
     margin: 0 auto;
   }
 }

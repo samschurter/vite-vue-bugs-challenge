@@ -1,0 +1,16 @@
+{
+  "image":"mcr.microsoft.com/devcontainers/universal:2",
+  "forwardPorts": [3000, 5173],
+  "postAttachCommand": "gh codespace ports visibility 3000:public -c $CODESPACE_NAME",
+  
+  "portsAttributes": {
+    "3000": {
+      "label": "backend",
+      "onAutoForward": "silent"
+    },
+    "5173": {
+      "label": "frontend",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
