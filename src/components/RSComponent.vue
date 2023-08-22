@@ -53,7 +53,7 @@ export default {
     },
   },
   data() {
-    // TODO: fetch data and colors from api
+    / TODO: fetch data and colors from api
     return {
       dataList: [
         {

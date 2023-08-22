@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import RSComponent from './components/RSComponent.vue';
+import RSComponent from './components/RSCompnent.vue';
 const API_URL = "https://" + window.location.host.replace('5173', '3000') + "/";
 export default {
   components: {
