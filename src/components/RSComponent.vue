@@ -44,6 +44,7 @@
 </template>
 
 <script>
+const API_URL = "https://" + window.location.host.replace('5173', '3000') + "/";
 export default {
   props: {
     user: {
@@ -52,7 +53,7 @@ export default {
     },
   },
   data() {
-    / TODO: fetch data and colors from api
+    // TODO: fetch data and colors from api
     return {
       dataList: [
         {

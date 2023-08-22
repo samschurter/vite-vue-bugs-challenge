@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import RSComponent from './components/RSCompnent.vue';
+import RSComponent from './components/RSComponent.vue';
+const API_URL = "https://" + window.location.host.replace('5173', '3000') + "/";
 export default {
   components: {
     RSComponent,
@@ -74,7 +75,7 @@ export default {
     };
   },
   mounted() {
-    console.log('mounted');
+    console.log('mounted', API_URL);
     // TODO: fetch user list from API
   },
   methods: {

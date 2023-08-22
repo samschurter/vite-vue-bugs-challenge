@@ -16,6 +16,24 @@ const users = JSON.parse(fs.readFileSync('data.json', 'utf8'));
  */
 
 const jsonServer = async (req: Request, res: Response) => {
+  const logData = {
+    timestamp: new Date().toISOString(),
+    method: req.method,
+    path: req.path,
+    query: req.query,
+    headers: req.headers,
+    body: req.body,
+    // user agent
+    ua: req.headers['user-agent'],
+    // ip address
+    ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+  };
+  // log the request
+  console.log(JSON.stringify(logData, null, 2) + "\n\n");
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.set('Access-Control-Max-Age', '86400');
   switch (req.path) {
     case '/getAuthToken':
       res.status(200).json({token: authToken, expiration: (new Date(Date.now() + 86400000)).getTime()})
