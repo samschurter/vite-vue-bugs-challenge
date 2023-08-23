@@ -6,10 +6,12 @@ This is a simple Vue app with Single File Components. The challenge will be to f
 - Open the terminal and enter `npm run start`. This will launch dev servers for both the frontend and the API. When you save a file, the app will rebuild and reload.  
 
 ## 1. Bugs
-There are bugs! The app won't even build right now. Your mission is to get the app building and fix the bugs so that it looks like the following image
+There are bugs! The app won't even build right now. Your mission is to get the app building and fix the bugs so that it looks like the following image:
+
 <img src="image.png" width="600px"/>
 
 Then, when the "Clear" button is clicked, it should clear the scores like so:
+
 <img src="image-1.png" width="600px"/>
 
 Pay close attention to the screenshots, the styles and colors need to match exactly. 
