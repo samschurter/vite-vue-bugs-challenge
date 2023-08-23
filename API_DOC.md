@@ -1,10 +1,12 @@
 # User Data API
 There is a local server running on `localhost:3000` that will serve user specific data.
 
+These docs are also available as Swagger at https://app.swaggerhub.com/apis-docs/samschurter/UserDataAPI/0.1
+
 This API provides access to a list of users stored in a JSON file. It includes the following endpoints:
 
 - `/getAuthToken`: Returns an authentication token that can be used to access the other endpoints.
-- `/listUsers`: Returns an array of user IDs.
+- `/listUsers`: Returns an array of users with IDs and names.
 - `/getUser?userID=<id>`: Returns the user object with the specified ID.
 
 ## Usage

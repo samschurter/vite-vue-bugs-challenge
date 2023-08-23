@@ -43,7 +43,10 @@ const jsonServer = async (req: Request, res: Response) => {
         res.status(401).json({error: 'Unauthorized'});
         return;
       }
-      const userIds = users.map(user => user.id);
+      const userIds = users.map(user => ({
+        id: user.id,
+        name: user.name,
+      }));
       res.status(200).json(userIds)
       break;
     case '/getUser':

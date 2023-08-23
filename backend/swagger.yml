@@ -1,0 +1,112 @@
+openapi: 3.0.3
+info:
+  title: User Data API
+  description: |-
+    There is a local server running on localhost:3000 that will serve user specific data.
+
+    This API provides access to a list of users stored in a JSON file.
+  version: "0.1"
+servers:
+  - url: https://localhost:3000
+paths:
+  /getAuthToken:
+    get:
+      description: Returns an authentication token that can be used to access the other endpoints.
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/TokenResponse'          
+  /getUser:
+    get:
+      description: Returns the user object with the specified ID
+      parameters:
+        - name: userID
+          in: query
+          description: ID for the user to retrieve
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/User'
+        '400':
+          description: "bad request: missing user ID"
+        '404':
+          description: User not found
+      security:
+        - bearerAuth: []
+  /listUsers:
+    get:
+      description: Returns an array of users with IDs and names
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserSummary'          
+      security:
+        - bearerAuth: []
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ZEX58MUB7TI"
+        name:
+          type: string
+          example: John Smith
+        email:
+          type: string
+          example: john@email.com
+        reaction:
+          type: integer
+          example: 75
+          format: int32
+        memory:
+          type: integer
+          example: 75
+          format: int32
+        verbal:
+          type: integer
+          example: 75
+          format: int32
+        visual:
+          type: integer
+          example: 75
+          format: int32
+    UserSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ZEX58MUB7TI"
+        name:
+          type: string
+          example: John Smith
+    TokenResponse:
+      required:
+        - token
+        - expiration
+      type: object
+      properties:
+        token:
+          type: string
+        expiration:
+          type: integer
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: authToken

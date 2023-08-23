@@ -33,6 +33,7 @@ export default {
     RSComponent,
   },
   data() {
+    /////////////////////////////////
     // TODO: delete the following mock data and replace with real data from the API
     const users = [
       {
