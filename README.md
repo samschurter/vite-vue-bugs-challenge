@@ -17,7 +17,7 @@ Then, when the "Clear" button is clicked, it should clear the scores like so:
 Pay close attention to the screenshots, the styles and colors need to match exactly. 
 
 ## 2. Features
-Now that the bugs are fixes, we can add the new features. Right now, we are using static mock data that is hard-coded into the app. We need to replace this with data loaded from an API. Refer to [the API documentation](https://app.swaggerhub.com/apis-docs/samschurter/UserDataAPI/0.1) for instructions on accessing and using the API.
+Now that the bugs are fixed, we can add the new features. Right now, we are using static mock data that is hard-coded into the app. We need to replace this with data loaded from an API. Refer to [the API documentation](https://app.swaggerhub.com/apis-docs/samschurter/UserDataAPI/0.1) for instructions on accessing and using the API.
 
 In any order, we need to accomplish the following:
 - The app should display the list of users first, not the scores
