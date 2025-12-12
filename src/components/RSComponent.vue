@@ -28,7 +28,7 @@
           <div class="icon">
             <img :src="data.icon" alt="icon" />
           </div>
-          <h3 :style="data.textcolor">{{ data.category }}</h3>
+          <h3 :style="data.textColor">{{ data.category }}</h3>
           <div class="score-end">
             <span class="strong">{{ 20 }}</span>
             <span class="weak">/ 100</span>
@@ -62,7 +62,7 @@ export default {
           score: 85,
           icon: '/images/icon-reaction.svg',
           color: `background-color:hsl(0, 100%, 67%, 0.05)`,
-          textColor: `color:hsl(0, 100%, 67%)`,
+          textColor: { textColor: 'hsl(0, 100%, 67%)' },
         },
         {
           id: 'memory',
@@ -70,7 +70,7 @@ export default {
           score: 92,
           icon: '/images/icon-memory.svg',
           color: `background-color:hsl(39, 100%, 56%, 0.05)`,
-          textColor: `color:hsl(39, 100%, 56%)`,
+          textColor: { textColor: 'hsl(39, 100%, 56%)' },
         },
         {
           id: 'verbal',
@@ -78,7 +78,7 @@ export default {
           score: 61,
           icon: '/images/icon-verbal.svg',
           color: `background-color:hsl(166, 100%, 37%, 0.05)`,
-          textColor: `color:hsl(166, 100%, 37%)`,
+          textColor: { textColor: 'hsl(166, 100%, 37%)' },
         },
         {
           id: 'visual',
@@ -86,7 +86,7 @@ export default {
           score: 72,
           icon: '/images/icon-visual.svg',
           color: `background-color:hsl(234, 85%, 45%, 0.05)`,
-          textColor: `color:hsl(234, 85%, 45%)`,
+          textColor: { textColor: 'hsl(234, 85%, 45%)' },
         },
       ],
     };
@@ -171,7 +171,7 @@ export default {
 }
 
 .dataBar h3 {
-  color: var(--neutral-dark-blue);
+  color: var(--neutral-dark-gray-blue);
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 0 20px;

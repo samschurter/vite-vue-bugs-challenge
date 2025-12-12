@@ -1,25 +1,19 @@
 <template>
   <!-- For debugging -->
   <div v-if="token">
-    {{  token }}
+    {{ token }}
   </div>
   <div 
     v-if="!selectedUser"
     class="card-wrapper"
   >
-    <div class="card user-list-card">
-      <h2>Select User</h2>
-      <ol class="user-list">
-        <li
-          v-for="user in userList"
-          :key="user.id"
-          class="user"
-          @click="selectUser(user)"
-        >
-          {{ user.name }}
-        </li>
-      </ol>
-    </div>
+    <UserSelectCard
+      :users="userList"
+      :is-loading="isLoading"
+      :error-message="errorMessage"
+      @refresh="loadUsers"
+      @select="selectUser"
+    />
   </div>
   <div v-else>
     <RSComponent 
@@ -31,14 +25,27 @@
 
 <script>
 import RSComponent from './components/RSCompnent.vue';
-const API_URL = "https://" + window.location.host.replace('5173', '3000') + "/";
+import UserSelectCard from './components/UserSelectCard.vue';
+const API_URL =  window.location.protocol + "//" + window.location.host.replace('5173', '3000') + "/";
+/**
+ * @typedef {object} User
+ * @property {string} name
+ * @property {string} email
+ * @property {string} id
+ * @property {number} reaction
+ * @property {number} memory
+ * @property {number} verbal
+ * @property {number} visual
+ */
 export default {
   components: {
     RSComponent,
+    UserSelectCard,
   },
   data() {
     /////////////////////////////////
     // TODO: delete the following mock data and replace with real data from the API
+    /** @type {User[]} */
     const users = [
       {
         "name": "Garth Edwards",
@@ -78,14 +85,28 @@ export default {
       selectedUser: user,
       userList: users,
       token: '',
+      isLoading: false,
+      errorMessage: '',
     };
   },
   mounted() {
-    console.log('mounted', API_URL);
-    // TODO: fetch user list from API
+    this.loadUsers();
   },
   methods: {
-    selectUser(user) {
+    async loadUsers() {
+      console.log('loadUsers called, not yet implemented');
+      this.isLoading = true;
+      try {
+        // TODO: Fetch auth token, fetch users, update state, and handle errors here.
+
+        this.isLoading = false;
+      } catch (error) {
+        this.errorMessage = 'Failed to load users. Please try again: ' + error;
+        console.error('Error in loadUsers:', error);
+        return;
+      }
+    },
+    selectUser(/** @type {User} */ user) {
       console.log('selectUser', user);
       // TODO: select user and display scores
     },

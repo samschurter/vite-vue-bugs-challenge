@@ -6,6 +6,10 @@ const authToken = randomBytes(32).toString('hex');
 
 const users = JSON.parse(fs.readFileSync('data.json', 'utf8'));
 
+const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+const shouldThrottle = () => Math.random() < 0.3;
+
 /**
  * 
   curl localhost:8080/getAuthToken
@@ -34,13 +38,24 @@ const jsonServer = async (req: Request, res: Response) => {
   res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.set('Access-Control-Max-Age', '86400');
+  if (req.method === 'OPTIONS') {
+    res.status(204).send('');
+    return;
+  }
+  const waitTimeMs = 1000 + Math.floor(Math.random() * 1000);
+  
   switch (req.path) {
     case '/getAuthToken':
       res.status(200).json({token: authToken, expiration: (new Date(Date.now() + 86400000)).getTime()})
       break;
     case '/listUsers':
+      await delay(waitTimeMs);
       if (req.headers.authorization !== `Bearer ${authToken}`) {
         res.status(401).json({error: 'Unauthorized'});
+        return;
+      }
+      if (shouldThrottle()) {
+        res.status(429).send('<h1>429 Too Many Requests</h1>');
         return;
       }
       const userIds = users.map(user => ({

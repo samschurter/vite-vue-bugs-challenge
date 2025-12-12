@@ -14,7 +14,7 @@
     "vue": "^3.5.25"
   },
   "devDependencies": {
-    "@google-cloud/functions-framework": "^4.0.1",
+    "@google-cloud/functions-framework": "^4.0.0",
     "@vitejs/plugin-vue": "^6.0.2",
     "eslint": "^8.46.0",
     "nodemon": "^3.1.11",
