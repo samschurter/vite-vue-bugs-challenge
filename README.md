@@ -3,7 +3,8 @@
 This is a simple Vue app with Single File Components. The challenge will be to fix some bugs that are preventing the app from building and displaying properly. Then we will add some features to the app like loading data from an external API. 
 
 ## Running the project
-- Open the terminal and enter `npm run start`. This will launch dev servers for both the frontend and the API. When you save a file, the app will rebuild and reload.  
+- Open the terminal and enter `npm run dev`. This will launch the frontend dev server. When you save a file, the app will rebuild and reload.  
+- Open another terminal and enter `npm run backend`. This will launch the backend dev server. When you save a file, the app will rebuild and reload.  
 
 ## 1. Bugs
 There are bugs! The app won't even build right now. Your mission is to get the app building and fix the bugs so that it looks like the following image:

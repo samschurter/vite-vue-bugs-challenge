@@ -54,7 +54,7 @@ const jsonServer = async (req: Request, res: Response) => {
         res.status(401).json({error: 'Unauthorized: Invalid Token or No Token Provided'});
         return;
       }
-      const userId = req.query.userId;
+      const userId = req.query.userID;
       if (!userId) {
         res.status(400).json({error: 'Bad Request: Missing User ID'});
         return;

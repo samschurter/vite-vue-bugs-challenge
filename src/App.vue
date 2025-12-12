@@ -1,4 +1,8 @@
 <template>
+  <!-- For debugging -->
+  <div v-if="token">
+    {{  token }}
+  </div>
   <div 
     v-if="!selectedUser"
     class="card-wrapper"
@@ -73,6 +77,7 @@ export default {
     return {
       selectedUser: user,
       userList: users,
+      token: '',
     };
   },
   mounted() {
